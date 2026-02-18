@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36603.0 d17.14
+VisualStudioVersion = 17.14.36603.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidTestingConsole", "Testing\RapidTestingConsole\RapidTestingConsole.csproj", "{2DFA5CB0-9AA7-4055-BA2A-22DB4C61B078}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{9981B865-EACB-40E8-83E8-EC958FEDA82B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteAdapter", "Database\SQLiteAdapter\SQLiteAdapter.csproj", "{B414A471-5DDD-4702-A529-EE9C5669B39D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,17 @@ Global
 		{2DFA5CB0-9AA7-4055-BA2A-22DB4C61B078}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DFA5CB0-9AA7-4055-BA2A-22DB4C61B078}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DFA5CB0-9AA7-4055-BA2A-22DB4C61B078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B414A471-5DDD-4702-A529-EE9C5669B39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B414A471-5DDD-4702-A529-EE9C5669B39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B414A471-5DDD-4702-A529-EE9C5669B39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B414A471-5DDD-4702-A529-EE9C5669B39D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2DFA5CB0-9AA7-4055-BA2A-22DB4C61B078} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{B414A471-5DDD-4702-A529-EE9C5669B39D} = {9981B865-EACB-40E8-83E8-EC958FEDA82B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F77BFD7B-15BD-4B94-8042-A2A25B298FB5}
