@@ -1,0 +1,13 @@
+--
+-- File generated with SQLiteStudio v3.4.21 on Sze febr. 18 14:49:28 2026
+--
+-- Text encoding used: UTF-8
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+-- Table: PICTURE
+CREATE TABLE IF NOT EXISTS PICTURE (PATH TEXT PRIMARY KEY ASC ON CONFLICT ROLLBACK NOT NULL, FLAGS INTEGER NOT NULL);
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;
