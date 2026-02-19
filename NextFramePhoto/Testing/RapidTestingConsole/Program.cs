@@ -1,11 +1,10 @@
-﻿using MetadataExtractor;
-using MetadataExtractor.Formats.Exif;
-using MetadataExtractor.Formats.Iptc;
-using MetadataExtractor.Formats.Jpeg;
-using MetadataExtractor.Formats.Xmp;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.Formats.Xmp;
 
 internal static class Program
 {
