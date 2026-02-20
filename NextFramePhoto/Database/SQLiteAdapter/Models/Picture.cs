@@ -5,6 +5,8 @@ namespace SQLiteAdapter.Models;
 
 public partial class Picture
 {
+    public int Id { get; set; }
+
     public string Path { get; set; } = null!;
 
     public int Flags { get; set; }

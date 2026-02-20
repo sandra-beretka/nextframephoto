@@ -25,10 +25,11 @@ public partial class NextframephotoContext : DbContext
     {
         modelBuilder.Entity<Picture>(entity =>
         {
-            entity.HasKey(e => e.Path);
-
             entity.ToTable("PICTURE");
 
+            entity.HasIndex(e => e.Path, "IX_PICTURE_PATH").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Path).HasColumnName("PATH");
             entity.Property(e => e.Flags).HasColumnName("FLAGS");
         });
