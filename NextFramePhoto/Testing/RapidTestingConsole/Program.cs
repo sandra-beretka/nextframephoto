@@ -1,51 +1,69 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Versioning;
+using ImageMagick;
+using ImageMagick.Drawing;
+using ImageMagick.Formats;
 using MetadataExtractor;
-using MetadataExtractor.Formats.Exif;
-using MetadataExtractor.Formats.Iptc;
-using MetadataExtractor.Formats.Xmp;
+
 
 internal static class Program
 {
+    private class ImageInfo
+    {
+        public ImageInfo(string path)
+        {
+            Path = path;
+            Metadata = Array.Empty<MetadataExtractor.Directory>();
+        }
+
+        public string Path { get; }
+
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public DateTime FileCreationTime { get; set; }
+
+        public IReadOnlyList<MetadataExtractor.Directory> Metadata { get; set; }
+    }
+
+    [SupportedOSPlatform("windows")]
     static void Main()
     {
-        Console.WriteLine("Hello, World!");
-        string imagePath = @"C:\Users\sando\OneDrive\Pictures\viber_image_2026-01-24_22-43-48-872.jpg";
+        string root = @"E:\Sanyi\Pictures\Mobilrol\Camera";
+        string[] files = System.IO.Directory.GetFiles(root, "*.jpg", SearchOption.TopDirectoryOnly);
 
-        //Image Size
-        using (var image = Image.FromFile(imagePath))
+        Stopwatch sw = Stopwatch.StartNew();
+        List<ImageInfo> images = new List<ImageInfo>();
+        foreach (var item in files)
         {
-            Console.WriteLine($"Image size: {image.Width}x{image.Height} pixel");
+            ImageInfo info = ParseImage(item);
+            images.Add(info);
         }
 
-        // Timestampja
-        var fileInfo = new FileInfo(imagePath);
-        Console.WriteLine($"Timestamp: {fileInfo.CreationTime}");
+        sw.Stop();
 
-        // EXIF information
-        var metadata = ImageMetadataReader.ReadMetadata(imagePath);
+        Console.WriteLine(sw.Elapsed);
+    }
 
-        foreach (var directory in metadata)
-        {
-            if (directory is ExifIfd0Directory exif)
-            {
-                Console.WriteLine($"EXIF: {exif.GetDescription(ExifDirectoryBase.TagModel)}");
-            }
+    [SupportedOSPlatform("windows")]
+    private static ImageInfo ParseImage(string imagePath)
+    {
+        ImageInfo retVal = new ImageInfo(imagePath);
 
-            if (directory is IptcDirectory iptc)
-            {
-                Console.WriteLine($"IPTC: {iptc.GetDescription(IptcDirectory.TagHeadline)}");
-            }
+        var image2 = new MagickImage();
+        image2.Ping(imagePath, null);
+        var profile = image2.GetExifProfile();
+        var thumb = profile?.CreateThumbnail();
 
-            if (directory is XmpDirectory xmp)
-            {
-                Console.WriteLine($"XMP: {xmp.GetDescription(XmpDirectory.TagXmpValueCount)}");
-            }
-        }
-
-        // JPEG comment 
-        
-
+        retVal.Width = (int?)thumb?.Width ?? 0;
+        retVal.Height = (int?)thumb?.Height ?? 0;
+        //retVal.FileCreationTime = File.GetCreationTimeUtc(imagePath);
+        //retVal.Metadata = ImageMetadataReader.ReadMetadata(imagePath);
+        return retVal;
     }
 }
