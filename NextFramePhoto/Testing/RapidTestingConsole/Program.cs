@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Runtime.Versioning;
 using ImageMagick;
-using ImageMagick.Drawing;
-using ImageMagick.Formats;
-using MetadataExtractor;
 using SQLiteAdapter.Models;
 
 
@@ -40,6 +36,7 @@ internal static class Program
         sw.Stop();
 
         Console.WriteLine($"Metadata inserted in: {sw.Elapsed}");
+        Console.ReadLine();
     }
 
     [SupportedOSPlatform("windows")]
