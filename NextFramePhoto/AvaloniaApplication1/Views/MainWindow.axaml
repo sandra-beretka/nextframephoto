@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:controls="using:Avalonia.Labs.Controls"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaApplication1.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:siv="https://github.com/kekyo/SkiaImageView"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication1.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaApplication1" Opened="Window_Opened">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" Padding="5" />
+        <TextBlock Text="Ready..." Name="message" HorizontalAlignment="Center" Padding="5"/>
+        <Button Click="ClickHandler" HorizontalAlignment="Center" Padding="5">Press me!</Button>
+        <!--<Image Source="" Name="myPicture" Height="300" Stretch="Uniform"/>-->
+        <Slider Name="slider" Minimum="-180" Maximum="180" ValueChanged="Slider_ValueChanged" Width="500" HorizontalAlignment="Center" Margin="10"/>
+        <controls:SKCanvasView Name="skiaCanvasView" Height="500" Width="500" PaintSurface="SKCanvasView_PaintSurface"/>
+    </StackPanel>
+
+</Window>
