@@ -23,6 +23,8 @@
         <Button Click="ClickHandler" HorizontalAlignment="Center" Padding="5">Press me!</Button>
         <!--<Image Source="" Name="myPicture" Height="300" Stretch="Uniform"/>-->
         <Slider Name="slider" Minimum="-180" Maximum="180" ValueChanged="Slider_ValueChanged" Width="500" HorizontalAlignment="Center" Margin="10"/>
+        <Slider Name="tempslider" Minimum="0.0" Maximum="2.0" ValueChanged="TempSlider_ValueChanged" Width="500" HorizontalAlignment="Center" Margin="10"/>
+        <!--<Slider Name="gammaslider" Minimum="0.0" Maximum="5.0" ValueChanged="GammaSlider_ValueChanged" Width="500" HorizontalAlignment="Center" Margin="10"/>-->
         <controls:SKCanvasView Name="skiaCanvasView" Height="500" Width="500" PaintSurface="SKCanvasView_PaintSurface"/>
     </StackPanel>
 

@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using AvaloniaApplication1.ViewModels;
 using ImageMagick;
 using SkiaSharp;
@@ -11,7 +12,9 @@ namespace AvaloniaApplication1.Views
 {
     public partial class MainWindow : Window
     {
+        
         SKBitmap sourceBitmap;
+        SKPaint paint = new SKPaint();
         float rotationAngle = 0f;
 
         public MainWindow()
@@ -78,7 +81,7 @@ namespace AvaloniaApplication1.Views
 
             // 3. Create the SKBitmap and install the pixels
             var info = new SKImageInfo((int)magickImage.Width, (int)magickImage.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
-            var bitmap = new SKBitmap();
+            var bitmap = new SKBitmap((int)magickImage.Width, (int)magickImage.Height, SKColorType.Rgba8888, SKAlphaType.Premul, SKColorSpace.CreateSrgbLinear());
 
             // We use a pinned handle or simply copy the bytes into the bitmap's address space
             var handle = GCHandle.Alloc(pixels, GCHandleType.Pinned);
@@ -119,7 +122,7 @@ namespace AvaloniaApplication1.Views
             canvas.RotateDegrees(rotationAngle);
 
             var dest = new SKRect(-dw / 2f, -dh / 2f, dw / 2f, dh / 2f);
-            canvas.DrawBitmap(sourceBitmap, dest);
+            canvas.DrawBitmap(sourceBitmap, dest, paint);
 
             canvas.Restore();
         }
@@ -127,6 +130,40 @@ namespace AvaloniaApplication1.Views
         private void Slider_ValueChanged(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             rotationAngle = (float)e.NewValue;
+            skiaCanvasView?.InvalidateSurface();
+        }
+
+        private void TempSlider_ValueChanged(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            // SkiaSharp Color Matrix for White Balance
+            float temperature = (float)e.NewValue; // User slider value
+            var matrix = new float[]
+            {
+                temperature, 0, 0, 0, 0, // Red scale
+                0, 1, 0, 0, 0,           // Green scale
+                0, 0, 2 - temperature, 0, 0, // Blue scale
+                0, 0, 0, 1, 0            // Alpha
+            };
+
+            using var filter = SKColorFilter.CreateColorMatrix(matrix);
+            paint = new SKPaint { ColorFilter = filter };
+            skiaCanvasView?.InvalidateSurface();
+        }
+
+        private void GammaSlider_ValueChanged(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            // SkiaSharp Color Matrix for White Balance
+            float gamma = (float)e.NewValue; // User slider value
+            var matrix = new float[]
+            {
+                gamma, 0, 0, 0, 0, // Red scale
+                0, gamma, 0, 0, 0,           // Green scale
+                0, 0, gamma, 0, 0, // Blue scale
+                0, 0, 0, 1, 0            // Alpha
+            };
+
+            using var filter = SKColorFilter.CreateColorMatrix(matrix);
+            paint = new SKPaint { ColorFilter = filter };
             skiaCanvasView?.InvalidateSurface();
         }
     }
