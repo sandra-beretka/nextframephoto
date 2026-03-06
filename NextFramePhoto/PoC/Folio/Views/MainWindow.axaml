@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Folio.ViewModels"
+        xmlns:ctrls="using:Folio.Views.Controls"
+        x:Class="Folio.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Folio"
+        Width="1400" Height="860"
+        MinWidth="1100" MinHeight="600"
+        Background="{StaticResource Brush.Bg}"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome">
+
+    <DockPanel>
+
+        <!-- ── Top navigation bar ──────────────────────────────────────── -->
+        <Border DockPanel.Dock="Top"
+                Height="48"
+                Background="{StaticResource Brush.Surface}"
+                BorderBrush="{StaticResource Brush.Border}"
+                BorderThickness="0,0,0,1"
+                Padding="16,0">
+
+            <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+
+                <!-- Logo -->
+                <TextBlock Grid.Column="0"
+                           Text="FOLIO"
+                           FontSize="15"
+                           FontWeight="ExtraBold"
+                           Foreground="{StaticResource Brush.Accent}"
+                           VerticalAlignment="Center"
+                           Margin="0,0,24,0" />
+
+                <!-- Search -->
+                <Border Grid.Column="1"
+                        MaxWidth="400"
+                        HorizontalAlignment="Left">
+                    <TextBox Watermark="Search photos, dates, places, people…"
+                             VerticalAlignment="Center" />
+                </Border>
+
+                <!-- Nav tools -->
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            Spacing="6"
+                            VerticalAlignment="Center">
+                    <Button Content="⊞ Grid"      Classes="FilterButton Active" />
+                    <Button Content="▦ Dates"     Classes="FilterButton" />
+                    <Button Content="🗺 Map"       Classes="FilterButton" />
+                    <Button Content="Sort: Newest ▾" Classes="FilterButton" />
+                    <Button Content="⚙"           Classes="FilterButton" />
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+        <!-- ── Three-column body ───────────────────────────────────────── -->
+        <Grid ColumnDefinitions="260,*,280">
+
+            <!-- Col 1: Filter panel -->
+            <ctrls:FilterPanelControl Grid.Column="0"
+                                      DataContext="{Binding FilterPanel}" />
+
+            <!-- Col 2: Gallery + vertical timeline -->
+            <ctrls:GalleryControl Grid.Column="1"
+                                  DataContext="{Binding Gallery}" />
+
+            <!-- Col 3: Detail panel -->
+            <ctrls:DetailPanelControl Grid.Column="2"
+                                      DataContext="{Binding DetailPanel}" />
+
+        </Grid>
+
+    </DockPanel>
+
+</Window>

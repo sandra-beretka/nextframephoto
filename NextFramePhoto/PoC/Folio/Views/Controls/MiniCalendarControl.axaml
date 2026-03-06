@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:vm="using:Folio.ViewModels"
+			 xmlns:conv="using:Folio.Converters"
+			 x:Class="Folio.Views.Controls.MiniCalendarControl"
+			 x:DataType="vm:FilterPanelViewModel">
+
+	<UserControl.Resources>
+		<conv:CalendarDayConverter x:Key="CalDayConv" />
+	</UserControl.Resources>
+
+	<Border Padding="{StaticResource Padding.Section}">
+			<StackPanel Spacing="10">
+
+				<!-- Header row -->
+				<Grid ColumnDefinitions="Auto,*,Auto">
+					<Button Grid.Column="0"
+							Content="‹"
+							Command="{Binding NavigateCalendarBackCommand}"
+							Background="Transparent"
+							BorderThickness="0"
+							Foreground="{StaticResource Brush.Text3}"
+							Padding="2,0"
+							Cursor="Hand"
+							FontSize="14" />
+
+					<TextBlock Grid.Column="1"
+							   Text="{Binding CalendarMonth, StringFormat='{}{0:MMMM yyyy}'}"
+							   FontWeight="SemiBold"
+							   FontSize="13"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center" />
+
+					<Button Grid.Column="2"
+							Content="›"
+							Command="{Binding NavigateCalendarForwardCommand}"
+							Background="Transparent"
+							BorderThickness="0"
+							Foreground="{StaticResource Brush.Text3}"
+							Padding="2,0"
+							Cursor="Hand"
+							FontSize="14" />
+				</Grid>
+
+				<!-- Day-of-week headers -->
+				<ItemsControl x:Name="DayHeaders">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid Columns="7" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.Items>
+						<TextBlock Text="Mo" Classes="Mono" HorizontalAlignment="Center" FontSize="9" />
+						<TextBlock Text="Tu" Classes="Mono" HorizontalAlignment="Center" FontSize="9" />
+						<TextBlock Text="We" Classes="Mono" HorizontalAlignment="Center" FontSize="9" />
+						<TextBlock Text="Th" Classes="Mono" HorizontalAlignment="Center" FontSize="9" />
+						<TextBlock Text="Fr" Classes="Mono" HorizontalAlignment="Center" FontSize="9" />
+						<TextBlock Text="Sa" Classes="Mono" HorizontalAlignment="Center" FontSize="9" />
+						<TextBlock Text="Su" Classes="Mono" HorizontalAlignment="Center" FontSize="9" />
+					</ItemsControl.Items>
+				</ItemsControl>
+
+				<!-- Days grid — built in code-behind from CalendarMonth binding -->
+				<ItemsControl x:Name="DaysGrid">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid Columns="7" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+
+			</StackPanel>
+	</Border>
+</UserControl>

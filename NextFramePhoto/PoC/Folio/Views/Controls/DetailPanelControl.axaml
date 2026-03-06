@@ -1,0 +1,197 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Folio.ViewModels"
+             x:Class="Folio.Views.Controls.DetailPanelControl"
+             x:DataType="vm:DetailPanelViewModel">
+
+    <Border Background="{StaticResource Brush.Surface}"
+            BorderBrush="{StaticResource Brush.Border}"
+            BorderThickness="1,0,0,0">
+
+        <ScrollViewer>
+            <StackPanel>
+
+                <!-- Preview area -->
+                <Border Height="200" ClipToBounds="True">
+                    <Panel>
+                        <!-- Placeholder gradient -->
+                        <Border x:Name="PreviewGradient">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                    <GradientStop Color="#FF1E2430" Offset="0" />
+                                    <GradientStop Color="#FF1A1E28" Offset="0.5" />
+                                    <GradientStop Color="#FF1E1830" Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+
+                        <!-- No selection hint -->
+                        <StackPanel IsVisible="{Binding !HasSelection}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Spacing="6">
+                            <TextBlock Text="🖼"
+                                       FontSize="36"
+                                       HorizontalAlignment="Center"
+                                       Opacity="0.12" />
+                            <TextBlock Text="Click a photo to preview"
+                                       FontSize="9"
+                                       Foreground="{StaticResource Brush.Text3}"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Panel>
+                </Border>
+
+                <!-- Content shown only when a photo is selected -->
+                <StackPanel IsVisible="{Binding HasSelection}">
+
+                    <!-- Event cluster -->
+                    <Border Margin="14,12,14,0"
+                            Background="{StaticResource Brush.Surface2}"
+                            BorderBrush="{StaticResource Brush.Border}"
+                            BorderThickness="1"
+                            CornerRadius="{StaticResource Radius.Default}"
+                            Padding="12,10"
+                            IsVisible="{Binding EventCluster, Converter={x:Static ObjectConverters.IsNotNull}}">
+                        <StackPanel Spacing="4">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Ellipse Width="3" Height="3"
+                                         Fill="{StaticResource Brush.Accent2}"
+                                         VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding EventCluster.Label}"
+                                           FontSize="11"
+                                           FontWeight="Medium"
+                                           Foreground="{StaticResource Brush.Text2}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding EventCluster.SubLabel}"
+                                       FontSize="10"
+                                       Foreground="{StaticResource Brush.Text3}" />
+                            <ItemsControl ItemsSource="{Binding EventCluster.Devices}"
+                                          Margin="0,4,0,0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:EventClusterDeviceViewModel">
+                                        <Border CornerRadius="{StaticResource Radius.Pill}"
+                                                Margin="0,0,4,4"
+                                                Padding="8,2">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding Device.AccentColor}" Opacity="0.12" />
+                                            </Border.Background>
+                                            <Border.BorderBrush>
+                                                <SolidColorBrush Color="{Binding Device.AccentColor}" Opacity="0.4" />
+                                            </Border.BorderBrush>
+                                            <Border.BorderThickness>
+                                                <Thickness>1</Thickness>
+                                            </Border.BorderThickness>
+                                            <TextBlock Text="{Binding Label}"
+                                                       FontSize="9"
+                                                       Foreground="{StaticResource Brush.Text2}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- EXIF Metadata table -->
+                    <StackPanel Margin="14,12,14,0" Spacing="0">
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="FILE"    Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.FileName}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text2}" TextTrimming="CharacterEllipsis" />
+                        </Grid>
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="CAMERA"  Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.CameraModel}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text2}" />
+                        </Grid>
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="LENS"    Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.LensModel}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text2}"
+                                       IsVisible="{Binding SelectedPhoto.LensModel, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                            <TextBlock Grid.Column="1" Text="—"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text3}"
+                                       IsVisible="{Binding SelectedPhoto.LensModel, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+                        </Grid>
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="TAKEN"   Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.DateLabel}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text2}" />
+                        </Grid>
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="EXPOSURE" Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.ExposureLabel}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text2}" />
+                        </Grid>
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="SIZE"    Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.DimensionsLabel}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text2}" />
+                        </Grid>
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="STATUS"  Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.Status}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Accent}" />
+                        </Grid>
+                        <Border Classes="HRule" />
+
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                            <TextBlock Grid.Column="0" Text="LOCATION" Classes="Mono" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedPhoto.GpsLocation}"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text2}"
+                                       IsVisible="{Binding SelectedPhoto.GpsLocation, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                            <TextBlock Grid.Column="1" Text="—"
+                                       FontSize="11" Foreground="{StaticResource Brush.Text3}"
+                                       IsVisible="{Binding SelectedPhoto.GpsLocation, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Action buttons -->
+                    <Border Margin="14,12"
+                            BorderBrush="{StaticResource Brush.Border}"
+                            BorderThickness="0,1,0,0"
+                            Padding="0,12,0,0">
+                        <Grid ColumnDefinitions="*,*,*,*"> <!--ColumnSpacing="6"-->
+                            <Button Grid.Column="0"
+                                    Content="Catalog ✓"
+                                    Classes="ActionButton Primary"
+                                    Command="{Binding CatalogSelectedCommand}" />
+                            <Button Grid.Column="1"
+                                    Content="⭐ Star"
+                                    Classes="ActionButton"
+                                    Command="{Binding ToggleStarCommand}" />
+                            <Button Grid.Column="2"
+                                    Content="🏷 Tag"
+                                    Classes="ActionButton" />
+                            <Button Grid.Column="3"
+                                    Content="✂ Edit"
+                                    Classes="ActionButton" />
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+
+</UserControl>

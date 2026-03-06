@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Folio.ViewModels"
+             x:Class="Folio.Views.Controls.DeviceRowControl"
+             x:DataType="vm:DeviceViewModel">
+
+    <Border Padding="8,7" CornerRadius="{StaticResource Radius.Default}"
+            Background="Transparent"
+            PointerEntered="OnPointerEntered"
+            PointerExited="OnPointerExited">
+        <Grid ColumnDefinitions="10,*,28"> <!-- ColumnSpacing="10"-->
+
+            <!-- Color swatch -->
+            <Border Grid.Column="0"
+                    Width="10" Height="10"
+                    CornerRadius="3"
+                    VerticalAlignment="Center">
+                <Border.Background>
+                    <SolidColorBrush Color="{Binding AccentColor}" />
+                </Border.Background>
+            </Border>
+
+            <!-- Name + meta -->
+            <StackPanel Grid.Column="1" Spacing="1" VerticalAlignment="Center">
+                <TextBlock Text="{Binding DisplayName}"
+                           FontSize="12"
+                           Foreground="{StaticResource Brush.Text}"
+                           TextTrimming="CharacterEllipsis" />
+                <TextBlock FontSize="10"
+                           Foreground="{StaticResource Brush.Text3}">
+                    <Run Text="{Binding PhotoCountLabel}" />
+                    <Run Text=" · " />
+                    <Run Text="{Binding FormatLabel}" />
+                </TextBlock>
+            </StackPanel>
+
+            <!-- Toggle -->
+            <ToggleButton Grid.Column="2"
+                          Classes="DeviceToggle"
+                          IsChecked="{Binding IsEnabled}"
+                          VerticalAlignment="Center" />
+        </Grid>
+    </Border>
+
+</UserControl>

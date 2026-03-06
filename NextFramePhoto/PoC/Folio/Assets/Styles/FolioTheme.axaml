@@ -1,0 +1,100 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ── Color Resources ─────────────────────────────────────────────── -->
+    <Styles.Resources>
+
+        <!-- Background layers -->
+        <Color x:Key="Col.Bg">#FF111113</Color>
+        <Color x:Key="Col.Surface">#FF1A1A1E</Color>
+        <Color x:Key="Col.Surface2">#FF222228</Color>
+        <Color x:Key="Col.Surface3">#FF2A2A32</Color>
+        <Color x:Key="Col.Border">#FF2E2E38</Color>
+
+        <!-- Accent -->
+        <Color x:Key="Col.Accent">#FFE8A44A</Color>
+        <Color x:Key="Col.AccentDim">#33E8A44A</Color>
+        <Color x:Key="Col.Accent2">#FF6B9FFF</Color>
+
+        <!-- Text -->
+        <Color x:Key="Col.Text">#FFE8E8F0</Color>
+        <Color x:Key="Col.Text2">#FF8888A0</Color>
+        <Color x:Key="Col.Text3">#FF55556A</Color>
+
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="Brush.Bg"       Color="{StaticResource Col.Bg}"       />
+        <SolidColorBrush x:Key="Brush.Surface"  Color="{StaticResource Col.Surface}"  />
+        <SolidColorBrush x:Key="Brush.Surface2" Color="{StaticResource Col.Surface2}" />
+        <SolidColorBrush x:Key="Brush.Surface3" Color="{StaticResource Col.Surface3}" />
+        <SolidColorBrush x:Key="Brush.Border"   Color="{StaticResource Col.Border}"   />
+        <SolidColorBrush x:Key="Brush.Accent"   Color="{StaticResource Col.Accent}"   />
+        <SolidColorBrush x:Key="Brush.AccentDim" Color="{StaticResource Col.AccentDim}"/>
+        <SolidColorBrush x:Key="Brush.Accent2"  Color="{StaticResource Col.Accent2}"  />
+        <SolidColorBrush x:Key="Brush.Text"     Color="{StaticResource Col.Text}"     />
+        <SolidColorBrush x:Key="Brush.Text2"    Color="{StaticResource Col.Text2}"    />
+        <SolidColorBrush x:Key="Brush.Text3"    Color="{StaticResource Col.Text3}"    />
+
+        <!-- Typography -->
+        <FontFamily x:Key="Font.Mono">avares://Avalonia.Fonts.Inter/Assets#Inter</FontFamily>
+        <x:Double x:Key="FontSize.Tiny">9</x:Double>
+        <x:Double x:Key="FontSize.Small">11</x:Double>
+        <x:Double x:Key="FontSize.Body">12</x:Double>
+        <x:Double x:Key="FontSize.Heading">15</x:Double>
+        <x:Double x:Key="FontSize.Title">18</x:Double>
+        <x:Double x:Key="FontSize.Display">28</x:Double>
+
+        <!-- Spacing -->
+        <Thickness x:Key="Padding.Section">14</Thickness>
+        <CornerRadius x:Key="Radius.Default">6</CornerRadius>
+        <CornerRadius x:Key="Radius.Pill">20</CornerRadius>
+        <CornerRadius x:Key="Radius.Thumb">3</CornerRadius>
+
+        <!-- Inbox gradient -->
+        <LinearGradientBrush x:Key="Brush.InboxCard" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#CC1E2A1E" Offset="0" />
+            <GradientStop Color="#CC1A1E2A" Offset="1" />
+        </LinearGradientBrush>
+
+    </Styles.Resources>
+
+    <!-- ── Base overrides ───────────────────────────────────────────────── -->
+
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{StaticResource Brush.Bg}" />
+        <Setter Property="FontFamily" Value="Inter,Segoe UI,sans-serif" />
+        <Setter Property="FontSize"   Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text}" />
+    </Style>
+
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text}" />
+    </Style>
+
+    <Style Selector="TextBox">
+        <Setter Property="Background"       Value="{StaticResource Brush.Surface2}" />
+        <Setter Property="BorderBrush"      Value="{StaticResource Brush.Border}" />
+        <Setter Property="Foreground"       Value="{StaticResource Brush.Text}" />
+        <Setter Property="BorderThickness"  Value="1" />
+        <Setter Property="CornerRadius"     Value="{StaticResource Radius.Default}" />
+        <Setter Property="Padding"          Value="8,6,8,6" />
+        <Setter Property="FontSize"         Value="{StaticResource FontSize.Body}" />
+        <Setter Property="CaretBrush"       Value="{StaticResource Brush.Accent}" />
+    </Style>
+
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{StaticResource Brush.Accent}" />
+    </Style>
+
+    <Style Selector="ScrollBar">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ScrollBar /template/ Thumb">
+        <Setter Property="Background" Value="{StaticResource Brush.Surface3}" />
+    </Style>
+
+    <Style Selector="ScrollViewer">
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+    </Style>
+
+</Styles>

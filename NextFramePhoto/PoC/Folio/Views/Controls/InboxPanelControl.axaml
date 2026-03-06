@@ -1,0 +1,130 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Folio.ViewModels"
+             x:Class="Folio.Views.Controls.InboxPanelControl"
+             x:DataType="vm:InboxViewModel">
+
+    <Border BorderThickness="0,1,0,0"
+            BorderBrush="{StaticResource Brush.Border}"
+            Padding="{StaticResource Padding.Section}">
+
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Color="#FF1A1A1E" Offset="0" />
+                <GradientStop Color="#FF1A1E1A" Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <StackPanel Spacing="10">
+
+            <!-- Section label with pulse dot -->
+            <StackPanel Orientation="Horizontal" Spacing="6">
+                <Ellipse x:Name="PulseDot"
+                         Width="5" Height="5"
+                         Fill="{StaticResource Brush.Accent}"
+                         VerticalAlignment="Center" />
+                <TextBlock Text="INBOX" Classes="SectionLabel" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Card -->
+            <Border CornerRadius="{StaticResource Radius.Default}"
+                    BorderBrush="{StaticResource Brush.AccentDim}"
+                    BorderThickness="1"
+                    Padding="12">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                        <GradientStop Color="#CC1E2A1E" Offset="0" />
+                        <GradientStop Color="#CC1A1E2A" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel Spacing="8">
+
+                    <!-- Count + CTA row -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="2">
+                            <TextBlock Text="{Binding UncatalogedCount}"
+                                       FontSize="28"
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource Brush.Accent}"
+                                       LineHeight="28" />
+                            <TextBlock Text="uncataloged photos"
+                                       FontSize="10"
+                                       Foreground="{StaticResource Brush.Text3}" />
+                        </StackPanel>
+
+                        <Button Grid.Column="1"
+                                Content="Catalog now →"
+                                Classes="CatalogNowButton"
+                                Command="{Binding RequestCatalogCommand}"
+                                VerticalAlignment="Top" />
+                    </Grid>
+
+                    <!-- Progress bar -->
+                    <StackPanel Spacing="4">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding DoneLabel}"
+                                       FontSize="9"
+                                       Foreground="{StaticResource Brush.Text3}" />
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding LastImportLabel}"
+                                       FontSize="9"
+                                       Foreground="{StaticResource Brush.Text3}" />
+                        </Grid>
+
+                        <Border Height="3"
+                                CornerRadius="2"
+                                Background="{StaticResource Brush.Surface3}"
+                                ClipToBounds="True">
+                            <Border x:Name="ProgressBar"
+                                    HorizontalAlignment="Left"
+                                    Height="3"
+                                    CornerRadius="2">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                                        <GradientStop Color="#FFE8A44A" Offset="0" />
+                                        <GradientStop Color="#FFFFCC80" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Per-device source chips -->
+                    <ItemsControl ItemsSource="{Binding Sources}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:InboxSourceViewModel">
+                                <Border CornerRadius="{StaticResource Radius.Pill}"
+                                        Background="{StaticResource Brush.Surface3}"
+                                        Padding="8,2"
+                                        Margin="0,0,4,4">
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Ellipse Width="5" Height="5" VerticalAlignment="Center">
+                                            <Ellipse.Fill>
+                                                <SolidColorBrush Color="{Binding Device.AccentColor}" />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <TextBlock FontSize="9"
+                                                   Foreground="{StaticResource Brush.Text3}">
+                                            <Run Text="{Binding Device.Name}" />
+                                            <Run Text=" · " />
+                                            <Run Text="{Binding Count}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+
+</UserControl>

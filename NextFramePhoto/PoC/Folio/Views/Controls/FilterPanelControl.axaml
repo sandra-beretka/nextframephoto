@@ -1,0 +1,95 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Folio.ViewModels"
+             xmlns:ctrls="using:Folio.Views.Controls"
+             x:Class="Folio.Views.Controls.FilterPanelControl"
+             x:DataType="vm:FilterPanelViewModel">
+
+    <Border Background="{StaticResource Brush.Surface}"
+            BorderBrush="{StaticResource Brush.Border}"
+            BorderThickness="0,0,1,0">
+
+        <DockPanel>
+
+            <!-- Inbox pinned to bottom -->
+            <ctrls:InboxPanelControl DockPanel.Dock="Bottom"
+                                     DataContext="{Binding Inbox}" />
+
+            <!-- Scrollable content above inbox -->
+            <ScrollViewer>
+                <StackPanel>
+
+                    <!-- Search box -->
+                    <Border Padding="12,12,12,12"
+                            BorderBrush="{StaticResource Brush.Border}"
+                            BorderThickness="0,0,0,1">
+                        <TextBox Text="{Binding SearchText}"
+                                 Watermark="Filter by date, tag, place…" />
+                    </Border>
+
+                    <!-- Devices section -->
+                    <Border Padding="14,14,14,14"
+                            BorderBrush="{StaticResource Brush.Border}"
+                            BorderThickness="0,0,0,1">
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="Cameras &amp; Devices"
+                                       Classes="SectionLabel"
+                                       Margin="0,0,0,10" />
+                            <ItemsControl ItemsSource="{Binding Devices}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:DeviceViewModel">
+                                        <ctrls:DeviceRowControl DataContext="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Mini Calendar -->
+                    <Border BorderBrush="{StaticResource Brush.Border}"
+                            BorderThickness="0,0,0,1">
+                        <ctrls:MiniCalendarControl DataContext="{Binding}" />
+                    </Border>
+
+                    <!-- Tags section -->
+                    <Border Padding="14">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Tags &amp; Albums" Classes="SectionLabel" />
+                            <ItemsControl ItemsSource="{Binding Tags}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:TagViewModel">
+                                        <Button Margin="0,0,4,4"
+                                                Padding="9,2"
+                                                Cursor="Hand"
+                                                BorderThickness="1"
+                                                CornerRadius="{StaticResource Radius.Pill}">
+                                            <Button.Background>
+                                                <SolidColorBrush Color="{Binding BgColor}" />
+                                            </Button.Background>
+                                            <Button.BorderBrush>
+                                                <SolidColorBrush Color="{Binding BorderColor}" />
+                                            </Button.BorderBrush>
+                                            <TextBlock Text="{Binding Label}"
+                                                       FontSize="9">
+                                                <TextBlock.Foreground>
+                                                    <SolidColorBrush Color="{Binding TextColor}" />
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+
+</UserControl>

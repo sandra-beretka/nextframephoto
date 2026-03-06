@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Folio.ViewModels"
+             xmlns:ctrls="using:Folio.Views.Controls"
+             x:Class="Folio.Views.Controls.PhotoGroupSectionControl"
+             x:DataType="vm:PhotoGroupViewModel">
+
+    <StackPanel Spacing="0">
+
+        <!-- Section header -->
+        <Border Padding="16,16,16,6">
+            <StackPanel Spacing="6">
+
+                <!-- Date + count row -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding HeaderLabel}"
+                               FontSize="15"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource Brush.Text}" />
+                    <Border Grid.Column="1"
+                            Background="{StaticResource Brush.Surface2}"
+                            BorderBrush="{StaticResource Brush.Border}"
+                            BorderThickness="1"
+                            CornerRadius="{StaticResource Radius.Pill}"
+                            Padding="8,2">
+                        <TextBlock Text="{Binding PhotoCount}"
+                                   FontSize="10"
+                                   Foreground="{StaticResource Brush.Text3}" />
+                    </Border>
+                </Grid>
+
+                <!-- Device chips -->
+                <ItemsControl ItemsSource="{Binding ContributingDevices}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:DeviceViewModel">
+                            <Border CornerRadius="{StaticResource Radius.Pill}"
+                                    Margin="0,0,4,0"
+                                    Padding="8,2">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding AccentColor}" Opacity="0.12" />
+                                </Border.Background>
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="{Binding AccentColor}" Opacity="0.4" />
+                                </Border.BorderBrush>
+                                <Border.BorderThickness>
+                                    <Thickness>1</Thickness>
+                                </Border.BorderThickness>
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <Ellipse Width="5" Height="5" VerticalAlignment="Center">
+                                        <Ellipse.Fill>
+                                            <SolidColorBrush Color="{Binding AccentColor}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <TextBlock FontSize="9"
+                                               Foreground="{StaticResource Brush.Text2}">
+                                        <Run Text="{Binding Name}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Photo grid -->
+        <ItemsControl ItemsSource="{Binding Photos}"
+                      Margin="16,0,16,8">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:PhotoViewModel">
+                    <ctrls:PhotoThumbnailControl
+                        Width="108" Height="108"
+                        Margin="1"
+                        DataContext="{Binding}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </StackPanel>
+
+</UserControl>

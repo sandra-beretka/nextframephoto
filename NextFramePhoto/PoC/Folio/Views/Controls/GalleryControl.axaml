@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Folio.ViewModels"
+             xmlns:ctrls="using:Folio.Views.Controls"
+             x:Class="Folio.Views.Controls.GalleryControl"
+             x:DataType="vm:GalleryViewModel">
+
+    <Grid ColumnDefinitions="*,36">
+
+        <!-- Photo groups scroll -->
+        <Border Grid.Column="0"
+                Background="{StaticResource Brush.Bg}">
+            <DockPanel>
+
+                <!-- Sticky toolbar -->
+                <Border DockPanel.Dock="Top"
+                        Background="{StaticResource Brush.Bg}"
+                        BorderBrush="{StaticResource Brush.Border}"
+                        BorderThickness="0,0,0,1"
+                        Padding="16,10">
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <!-- Camera filter chips -->
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    Spacing="6">
+                            <Button Content="All"           Classes="FilterButton Active" />
+                            <Button Content="Sony A7 IV"    Classes="FilterButton" />
+                            <Button Content="Anna's iPhone" Classes="FilterButton" />
+                            <Button Content="Martin's Pixel" Classes="FilterButton" />
+                        </StackPanel>
+
+                        <!-- View mode toggles -->
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    Spacing="4">
+                            <Button Content="⊞" Classes="FilterButton Active" />
+                            <Button Content="☰" Classes="FilterButton" />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+
+                <!-- Groups list -->
+                <ScrollViewer>
+                    <StackPanel>
+
+                        <!-- Loading indicator -->
+                        <Border IsVisible="{Binding IsLoading}"
+                                Padding="20">
+                            <TextBlock Text="Loading…"
+                                       Foreground="{StaticResource Brush.Text3}"
+                                       HorizontalAlignment="Center" />
+                        </Border>
+
+                        <!-- Photo groups -->
+                        <ItemsControl ItemsSource="{Binding Groups}"
+                                      IsVisible="{Binding !IsLoading}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:PhotoGroupViewModel">
+                                    <ctrls:PhotoGroupSectionControl DataContext="{Binding}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+            </DockPanel>
+        </Border>
+
+        <!-- Vertical timeline strip -->
+        <ctrls:VerticalTimelineControl Grid.Column="1" DataContext="{Binding}" />
+
+    </Grid>
+
+</UserControl>
