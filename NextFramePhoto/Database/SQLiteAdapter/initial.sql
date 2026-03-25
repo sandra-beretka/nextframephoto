@@ -1,10 +1,14 @@
 --
--- File generated with SQLiteStudio v3.4.21 on Fri Feb 20 15:28:11 2026
+-- File generated with SQLiteStudio v3.4.21 on Wed Mar 25 14:39:24 2026
 --
 -- Text encoding used: System
 --
 PRAGMA foreign_keys = off;
 BEGIN TRANSACTION;
+
+-- Table: EXIF_METADATA
+DROP TABLE IF EXISTS EXIF_METADATA;
+CREATE TABLE EXIF_METADATA (TAG TEXT, TYPE TEXT);
 
 -- Table: PICTURE
 DROP TABLE IF EXISTS PICTURE;
