@@ -1,1 +1,1 @@
-dotnet ef dbcontext scaffold "Data Source=..\..\..\..\..\Databases\nextframephoto.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Models --force
+dotnet ef dbcontext scaffold "Data Source=..\..\..\..\..\Databases\nextframephoto.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Models --no-pluralize --no-onconfiguring --force

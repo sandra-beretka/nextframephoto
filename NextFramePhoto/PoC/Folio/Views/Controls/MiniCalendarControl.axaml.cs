@@ -90,7 +90,7 @@ public partial class MiniCalendarControl : UserControl
                 Fill   = App.Current?.FindResource("Brush.Accent") as IBrush ?? Brushes.Orange,
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 VerticalAlignment   = Avalonia.Layout.VerticalAlignment.Bottom,
-                Margin = new Thickness(0, 0, 0, 2)
+                Margin = new Thickness(0, 0, 0, 2),
             };
             panel.Children.Add(dot);
         }

@@ -6,23 +6,27 @@ namespace SQLiteAdapter.Models;
 
 public partial class NextframephotoContext : DbContext
 {
-    public NextframephotoContext()
-    {
-    }
-
     public NextframephotoContext(DbContextOptions<NextframephotoContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<Picture> Pictures { get; set; }
+    public virtual DbSet<ExifMetadata> ExifMetadata { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("Data Source=Data\\nextframephoto.db");
+    public virtual DbSet<Picture> Picture { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ExifMetadata>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("EXIF_METADATA");
+
+            entity.Property(e => e.Tag).HasColumnName("TAG");
+            entity.Property(e => e.Type).HasColumnName("TYPE");
+        });
+
         modelBuilder.Entity<Picture>(entity =>
         {
             entity.ToTable("PICTURE");
@@ -30,8 +34,8 @@ public partial class NextframephotoContext : DbContext
             entity.HasIndex(e => e.Path, "IX_PICTURE_PATH").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Path).HasColumnName("PATH");
             entity.Property(e => e.Flags).HasColumnName("FLAGS");
+            entity.Property(e => e.Path).HasColumnName("PATH");
         });
 
         OnModelCreatingPartial(modelBuilder);
