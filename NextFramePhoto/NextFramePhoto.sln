@@ -12,11 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteAdapter", "Database\SQLiteAdapter\SQLiteAdapter.csproj", "{B414A471-5DDD-4702-A529-EE9C5669B39D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PoC", "PoC", "{2EA0DCBE-F027-4BE0-84B0-3E09714A651C}"
-	ProjectSection(SolutionItems) = preProject
-		PoC\AvaloniaApplication1\AvaloniaApplication1.csproj = PoC\AvaloniaApplication1\AvaloniaApplication1.csproj
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Folio", "PoC\Folio\Folio.csproj", "{EEEF0C36-DCE3-1FC5-3082-797941F552FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication1", "PoC\AvaloniaApplication1\AvaloniaApplication1.csproj", "{5C0EE157-4A8D-F0E6-1ADE-69CF878B3E3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +35,10 @@ Global
 		{EEEF0C36-DCE3-1FC5-3082-797941F552FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEEF0C36-DCE3-1FC5-3082-797941F552FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEEF0C36-DCE3-1FC5-3082-797941F552FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C0EE157-4A8D-F0E6-1ADE-69CF878B3E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C0EE157-4A8D-F0E6-1ADE-69CF878B3E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C0EE157-4A8D-F0E6-1ADE-69CF878B3E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C0EE157-4A8D-F0E6-1ADE-69CF878B3E3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +47,7 @@ Global
 		{2DFA5CB0-9AA7-4055-BA2A-22DB4C61B078} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{B414A471-5DDD-4702-A529-EE9C5669B39D} = {9981B865-EACB-40E8-83E8-EC958FEDA82B}
 		{EEEF0C36-DCE3-1FC5-3082-797941F552FB} = {2EA0DCBE-F027-4BE0-84B0-3E09714A651C}
+		{5C0EE157-4A8D-F0E6-1ADE-69CF878B3E3E} = {2EA0DCBE-F027-4BE0-84B0-3E09714A651C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F77BFD7B-15BD-4B94-8042-A2A25B298FB5}
