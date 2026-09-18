@@ -6,7 +6,6 @@ using System.Runtime.Versioning;
 using ImageMagick;
 using SQLiteAdapter.Models;
 
-
 internal static class Program
 {
     public static Dictionary<string, string> ExifMetadata = new Dictionary<string, string>();
@@ -60,7 +59,7 @@ internal static class Program
             var image2 = new MagickImage();
             image2.Ping(imagePath, null);
             var profile = image2.GetExifProfile();
-            //var thumb = profile?.CreateThumbnail();
+            var thumb = profile?.CreateThumbnail();
             if (profile == null)
             {
                 return retVal;

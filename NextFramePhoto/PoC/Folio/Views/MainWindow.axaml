@@ -8,8 +8,7 @@
         Width="1400" Height="860"
         MinWidth="1100" MinHeight="600"
         Background="{StaticResource Brush.Bg}"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="PreferSystemChrome">
+        ExtendClientAreaToDecorationsHint="True">
 
     <DockPanel>
 
@@ -36,7 +35,7 @@
                 <Border Grid.Column="1"
                         MaxWidth="400"
                         HorizontalAlignment="Left">
-                    <TextBox Watermark="Search photos, dates, places, people…"
+                    <TextBox PlaceholderText="Search photos, dates, places, people…"
                              VerticalAlignment="Center" />
                 </Border>
 

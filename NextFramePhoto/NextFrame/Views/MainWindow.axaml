@@ -1,0 +1,37 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NextFrame.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="using:NextFrame.Views"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="NextFrame.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title=""
+        ExtendClientAreaToDecorationsHint="True"
+        WindowDecorations="Full"
+        Resized="Window_Resized">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="32,*">
+        <!-- Custom title bar -->
+        <Border Grid.Row="0" Background="#2D2D2D"
+                WindowDecorationProperties.ElementRole="TitleBar">
+            <TextBlock Text="My App" Foreground="White"
+                       VerticalAlignment="Center" Margin="12,0" />
+        </Border>
+        <!-- Content -->
+        <Border Grid.Row="1" Margin="10">
+            <DockPanel LastChildFill="True">
+                <local:FilmStrip DockPanel.Dock="Bottom"/>
+                <local:SidePane />
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>
