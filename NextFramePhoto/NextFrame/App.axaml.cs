@@ -1,7 +1,8 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
+using NextFrame.CustomLogic;
 using NextFrame.ViewModels;
 using NextFrame.Views;
 using System.Threading.Tasks;
@@ -19,53 +20,34 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // 1. Create and show the Splash Screen
-            var splashVM = new SplashViewModel();
-            var splash = new Splash
+            using (ISplashScreen screen = new SplashScreen(desktop, CreateMainWindow))
             {
-                DataContext = splashVM,
-            };
+                screen.Show();
 
-            desktop.MainWindow = splash;
-            splash.Show();
-
-            // 2. Perform initialization tasks on a background thread
-            // Simulate loading configurations, databases, or API calls
-            await Task.Run(async () => await Initialize(splashVM));
-
-            // 3. Switch to the Main Window on the UI Thread
-            var mainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel(),
-            };
-
-            desktop.MainWindow = mainWindow;
-            mainWindow.Show();
-            splash.Close(); // Close the splash screen
+                IProgressReporter reporter = screen.GetProgressReporter();
+                await Task.Run(async () => await Initialize(reporter));
+            }
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private void UpdateInfo(SplashViewModel vm, int progress, string message, bool isIndeterminate=false)
+    private static Window CreateMainWindow()
     {
-        Dispatcher.UIThread.Post(() =>
+        return new MainWindow
         {
-            vm.IsIndeterminate = false;
-            vm.Progress = progress;
-            vm.StatusMessage = message;
-        });
+            DataContext = new MainViewModel(),
+        };
     }
 
-
-    private async Task Initialize(SplashViewModel vm)
+    private static async Task Initialize(IProgressReporter reporter)
     {
-        UpdateInfo(vm,0, "Loading configurations...");
+        reporter.ReportProgress(0, "Loading configurations...");
         await Task.Delay(1000);
-        UpdateInfo(vm, 30, "Loading database...");
+        reporter.ReportProgress(30, "Loading database...");
         await Task.Delay(1000);
-        UpdateInfo(vm, 60, "Loading thumbnails...");
+        reporter.ReportProgress(60, "Loading thumbnails...");
         await Task.Delay(1000);
-        UpdateInfo(vm, 100, "DONE");
+        reporter.ReportProgress(100, "DONE");
     }
 }
