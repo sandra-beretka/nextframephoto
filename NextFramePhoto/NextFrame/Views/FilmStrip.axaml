@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:NextFrame.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="NextFrame.Views.FilmStrip"
+             x:DataType="vm:FilmStripViewModel">
+    <DockPanel LastChildFill="True">
+        <!-- BOTTOM PANEL: Contains both the thin handle and the filmstrip -->
+        <Border DockPanel.Dock="Bottom"
+                Background="#1E1E1E"
+                BorderBrush="#333333"
+                BorderThickness="0,1,0,0">
+
+            <Grid RowDefinitions="Auto,Auto">
+
+                <!-- 1. THIN PLACEHOLDER / HANDLE (Always Visible) -->
+                <Grid Grid.Row="0"
+                      Height="25"
+                      Background="#2D2D30"
+                      ColumnDefinitions="*,Auto,*">
+
+                    <!-- Tiny label on the left -->
+                    <TextBlock Grid.Column="0"
+                               Text="FILMSTRIP"
+                               Foreground="#888888"
+                               FontSize="10"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+
+                    <!-- The Arrow Toggle Button in the center -->
+                    <!-- It switches content (arrows) based on whether it is checked -->
+                    <Button x:Name="FilmstripToggle"
+                            Grid.Column="1"
+                            Click="FilmstripToggle_Click"
+                            Padding="10,2"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="*"
+                            Height="15">
+                    </Button>
+                </Grid>
+
+                <!-- 2. FILMSTRIP BODY (Hideable) -->
+                <!-- Linked directly to the toggle button above -->
+                <Border  Grid.Row="1"
+                         Height="100"
+                         Background="#1A1A1A"
+                         IsVisible="{Binding FilmStripVisible}">
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="10">
+                            <!-- Filmstrip Thumbnails -->
+                            <Border Width="100" Background="#333333" CornerRadius="4"><TextBlock Text="Img 1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                            <Border Width="100" Background="#333333" CornerRadius="4"><TextBlock Text="Img 2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                            <Border Width="100" Background="#333333" CornerRadius="4"><TextBlock Text="Img 3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                            <Border Width="100" Background="#333333" CornerRadius="4"><TextBlock Text="Img 4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                            <Border Width="100" Background="#333333" CornerRadius="4"><TextBlock Text="Img 5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl>

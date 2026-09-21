@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
+using Avalonia.Media;
+using System.Collections.ObjectModel;
 using AvaloniaApplication1.ViewModels;
 using ImageMagick;
 using SkiaSharp;
@@ -66,6 +68,22 @@ namespace AvaloniaApplication1.Views
 
             // Request the view to repaint so the SKCanvasView will draw the source bitmap
             skiaCanvasView?.InvalidateVisual();
+
+            // Populate gallery with sample colors
+            try
+            {
+                var cols = new ObservableCollection<IBrush>();
+                for (int i = 0; i < 50; i++)
+                {
+                    byte r = (byte)((i * 37) % 256);
+                    byte g = (byte)((i * 59) % 256);
+                    byte b = (byte)((i * 83) % 256);
+                    cols.Add(new SolidColorBrush(new Color(255, r, g, b)));
+                }
+
+                colorGallery.Colors = cols;
+            }
+            catch { }
         }
 
         public static SKBitmap ToSKBitmap(MagickImage magickImage)

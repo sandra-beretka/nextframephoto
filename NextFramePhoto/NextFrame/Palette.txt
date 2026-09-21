@@ -1,0 +1,29 @@
+﻿- CSV
+
+F48618,9D9F9A,1FAF9F,58625F,1B2929
+
+- With #
+
+#F48618, #9D9F9A, #1FAF9F, #58625F, #1B2929
+
+- Array
+
+["F48618","9D9F9A","1FAF9F","58625F","1B2929"]
+
+- Object
+
+{"Tiger Orange":"F48618","Grey Olive":"9D9F9A","Ocean Mist":"1FAF9F","Granite":"58625F","Jet Black":"1B2929"}
+
+- Extended Array
+
+[{"name":"Tiger Orange","hex":"F48618","rgb":[244,134,24],"cmyk":[0,45,90,4],"hsb":[30,90,96],"hsl":[30,91,53],"lab":[67,36,69]},{"name":"Grey Olive","hex":"9D9F9A","rgb":[157,159,154],"cmyk":[1,0,3,38],"hsb":[84,3,62],"hsl":[84,3,61],"lab":[65,-2,2]},{"name":"Ocean Mist","hex":"1FAF9F","rgb":[31,175,159],"cmyk":[82,0,9,31],"hsb":[173,82,69],"hsl":[173,70,40],"lab":[65,-39,-2]},{"name":"Granite","hex":"58625F","rgb":[88,98,95],"cmyk":[10,0,3,62],"hsb":[162,10,38],"hsl":[162,5,36],"lab":[41,-5,0]},{"name":"Jet Black","hex":"1B2929","rgb":[27,41,41],"cmyk":[34,0,0,84],"hsb":[180,34,16],"hsl":[180,21,13],"lab":[15,-6,-2]}]
+
+- XML
+
+<palette>
+  <color name="Tiger Orange" hex="F48618" r="244" g="134" b="24" />
+  <color name="Grey Olive" hex="9D9F9A" r="157" g="159" b="154" />
+  <color name="Ocean Mist" hex="1FAF9F" r="31" g="175" b="159" />
+  <color name="Granite" hex="58625F" r="88" g="98" b="95" />
+  <color name="Jet Black" hex="1B2929" r="27" g="41" b="41" />
+</palette>

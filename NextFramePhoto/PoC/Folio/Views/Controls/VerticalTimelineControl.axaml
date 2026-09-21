@@ -34,8 +34,8 @@
                             </StackPanel>
 
                             <!-- Month tick -->
-                            <Button Command="{Binding DataContext.ActivateTimelineEntryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                    CommandParameter="{Binding}" />
+<!--                            <Button Command="{Binding DataContext.ActivateTimelineEntryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" />-->
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

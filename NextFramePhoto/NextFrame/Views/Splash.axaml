@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NextFrame.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="436"
+        x:Class="NextFrame.Views.Splash"
+        x:DataType="vm:SplashViewModel"
+        Icon="/Assets/LogoSQ.ico"
+        Title="Next Frame Photo"
+        WindowStartupLocation="CenterScreen"
+        WindowDecorations="None"
+        Topmost="True"
+        Background="#1B2929"
+        Width="800"
+        Height="450">
+
+    <Grid RowDefinitions="*, Auto">
+        <!-- Your Logo or App Title -->
+        <Image Source="/Assets/Splash.png"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center" /><!-- 436 -->
+
+               <TextBlock Grid.Row="0"
+                          Text="{Binding StatusMessage}"
+                          FontFamily="Consolas"
+                          FontSize="12"
+                          Foreground="White"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Bottom"
+                          Margin="10,0,0,2"/>
+
+        <!-- Progress Indicator -->
+        <ProgressBar Grid.Row="1"
+                     IsIndeterminate="{Binding IsIndeterminate}"
+                     Value="{Binding Progress}"
+                     Height="4"
+                     Background="Transparent"
+                     Foreground="#F48618" />
+    </Grid>
+</Window>
